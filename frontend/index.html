@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task App</title>
+</head>
+<body>
+
+<h2>Login</h2>
+<input id="email" placeholder="email">
+<input id="password" placeholder="password">
+<button onclick="login()">Login</button>
+
+<h2>Create Task</h2>
+<input id="title" placeholder="title">
+<input id="desc" placeholder="description">
+<button onclick="createTask()">Create</button>
+
+<script>
+async function login() {
+  const res = await fetch("http://127.0.0.1:8000/api/v1/auth/login", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value
+    })
+  });
+
+  const data = await res.json();
+  localStorage.setItem("token", data.access_token);
+}
+
+async function createTask() {
+  const token = localStorage.getItem("token");
+
+  await fetch("http://127.0.0.1:8000/api/v1/tasks", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+    },
+    body: JSON.stringify({
+      title: title.value,
+      description: desc.value
+    })
+  });
+}
+</script>
+
+</body>
+</html>
