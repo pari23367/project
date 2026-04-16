@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Task App</title>
-</head>
-<body>
-
-<h2>Login</h2>
 <input id="email" placeholder="email">
 <input id="password" placeholder="password">
 <button onclick="login()">Login</button>
 
-<h2>Create Task</h2>
 <input id="title" placeholder="title">
-<input id="desc" placeholder="description">
-<button onclick="createTask()">Create</button>
+<input id="desc" placeholder="desc">
+<button onclick="createTask()">Create Task</button>
 
 <script>
 async function login() {
@@ -25,7 +16,6 @@ async function login() {
       password: password.value
     })
   });
-
   const data = await res.json();
   localStorage.setItem("token", data.access_token);
 }
@@ -46,6 +36,3 @@ async function createTask() {
   });
 }
 </script>
-
-</body>
-</html>
